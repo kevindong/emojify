@@ -2,7 +2,7 @@
 A web app that lets you generate Slack messages consisting of just emojis. This is stupid, but the best kind of stupid.
 
 ## Usage
-Go [here](https://www.kevindong.net/emojify/index.html) to use the web app. 
+Go [here](https://www.kevindong.net/emojify/) to use the web app. 
 
 **IMPORTANT NOTE**: You **need** to have an emoji called `empty` in your Slack that is a blank white image in order to have the outputted message look right. I have included an `empty.png` file in this repo if you need a blank image. 
 
