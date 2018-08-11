@@ -81,7 +81,7 @@
     }
     text = text.toUpperCase();
     words = text.split(' ');
-    let actualOutput = '';
+    let fullBinaryOutput = '';
     for (let i = 0; i < words.length; i++) {
       let word = words[i];
       word = word.split('').join(' ');
@@ -104,10 +104,20 @@
         line4 += letter[4];
       }
       let binaryOutput = `${line0}\n${line1}\n${line2}\n${line3}\n${line4}\n`;
-      binaryOutput = binaryOutput.replace(/1/g, `:${emoji}:`).replace(/0/g, ':empty:');
-      actualOutput += `${binaryOutput}\n`;
+      fullBinaryOutput += `${binaryOutput}\n`;
     }
-    return actualOutput.slice(0, -2);
+    fullBinaryOutput = fullBinaryOutput.slice(0, -2);
+    let actualOutput = '';
+    for (let i = 0; i < fullBinaryOutput.length; i++) {
+      if (fullBinaryOutput.charAt(i) === '0') {
+        actualOutput += ':empty:';
+      } else if (fullBinaryOutput.charAt(i) === '1') {
+        actualOutput += `:${emoji}:`
+      } else {
+        actualOutput += '\n';
+      }
+    }
+    return actualOutput;
   }
   
   function copyToClipboard() {
