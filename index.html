@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Emojify</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+<h1 class="text-center mt-3">Emojify</h1>
+<div class="text-center">
+  <a href="https://github.com/kevindong/emojify">GitHub (Examples + Docs + Source Code)</a>
+</div>
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title">Instructions</h5>
+    <p class="mb-0">Note that you <strong>need</strong> an emoji in your Slack called "empty" (which should be a plain white image) in order for this tool to work correctly. Click <a href="https://github.com/kevindong/emojify/raw/master/empty.png">here</a> to download such an image. You'll need to upload it to your Slack in order to use this tool.</p>
+  </div>
+</div>
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title">Inputs</h5>
+    <div class="form-group">
+      <label for="inputEmoji">What emoji do you want to use?</label>
+      <input type="text" class="form-control" id="inputEmoji" value="partyparrot">
+    </div>
+    <div class="form-group">
+      <label for="inputText">What text do you want to emojify?</label>
+      <textarea class="form-control" id="inputText" rows="3"></textarea>
+      <small class="form-text text-muted">Alphanumeric (upper or lower case A to Z and any number 0-9) inputs only. Spaces are allowed.</small>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="emojifyDriver()">Emojify</button>
+  </div>
+</div>
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title">Output</h5>
+    <div class="form-group">
+      <textarea class="form-control" id="outputText" rows="10"></textarea>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="copyToClipboard()">Click to Copy</button>
+  </div>
+</div>
+</div>
+<script>
+  function emojifyDriver() {
+    const returnedValue = emojify(document.getElementById('inputEmoji').value, document.getElementById('inputText').value);
+    if (returnedValue) {
+      document.getElementById('outputText').value = returnedValue
+    } else {
+      alert('Invalid inputs detected! Are your inputs alphanumeric?')
+    }
+  }
+  
+  function emojify(emoji, text) {
+    const dictionary = {'A': '010\n101\n111\n101\n101', 'C': '111\n100\n100\n100\n111', 'B': '110\n101\n110\n101\n110', 'E': '111\n100\n111\n100\n111', 'D': '110\n101\n101\n101\n110', 'G': '1111\n1000\n1011\n1001\n1111', 'F': '111\n100\n111\n100\n100', 'I': '1\n1\n1\n1\n1', 'H': '101\n101\n111\n101\n101', 'K': '101\n110\n100\n110\n101', 'J': '001\n001\n001\n101\n111', 'M': '11111\n10101\n10101\n10101\n10101', 'L': '100\n100\n100\n100\n111', 'O': '111\n101\n101\n101\n111', 'N': '111\n101\n101\n101\n101', 'Q': '1110\n1010\n1010\n1010\n1111', 'P': '111\n101\n111\n100\n100', 'S': '111\n100\n111\n001\n111', 'R': '111\n101\n110\n101\n101', 'U': '101\n101\n101\n101\n111', 'T': '111\n010\n010\n010\n010', 'W': '10101\n10101\n10101\n10101\n11111', 'V': '101\n101\n101\n101\n010', 'Y': '10001\n01010\n00100\n00100\n00100', 'X': '10001\n01010\n00100\n01010\n10001', 'Z': '11111\n00010\n00100\n01000\n11111', ' ': '0\n0\n0\n0\n0', '0': '111\n101\n101\n101\n111', '1': '1\n1\n1\n1\n1', '2': '111\n001\n111\n100\n111', '3': '111\n001\n111\n001\n111', '4': '101\n101\n111\n001\n001', '5': '111\n100\n111\n001\n111', '6': '100\n100\n111\n101\n111', '7': '111\n001\n001\n001\n001', '8': '111\n101\n111\n101\n111', '9': '111\n101\n111\n001\n001'};
+    if (emoji.length == 0 || text.length == 0) {
+      return undefined;
+    }
+    const validationRegex = /^[A-z0-9 ]+$/;
+    const inputTextValid = text.match(validationRegex) !== null;
+    if (!inputTextValid) {
+      return undefined;
+    }
+    text = text.toUpperCase();
+    words = text.split(' ');
+    let actualOutput = '';
+    for (let i = 0; i < words.length; i++) {
+      let word = words[i];
+      word = word.split('').join(' ');
+      let binary = [];
+      for (let j = 0; j < word.length; j++) {
+        const character = word.charAt(j);
+        binary.push(dictionary[character].split('\n'));
+      }
+      line0 = '';
+      line1 = '';
+      line2 = '';
+      line3 = '';
+      line4 = '';
+      for (let j = 0; j < binary.length; j++) {
+        const letter = binary[j];
+        line0 += letter[0];
+        line1 += letter[1];
+        line2 += letter[2];
+        line3 += letter[3];
+        line4 += letter[4];
+      }
+      let binaryOutput = `${line0}\n${line1}\n${line2}\n${line3}\n${line4}\n`;
+      binaryOutput = binaryOutput.replace(/1/g, `:${emoji}:`).replace(/0/g, ':empty:');
+      actualOutput += `${binaryOutput}\n`;
+    }
+    return actualOutput.slice(0, -2);
+  }
+  
+  function copyToClipboard() {
+    document.getElementById('outputText').select();
+    document.execCommand('copy');
+    document.getElementById('outputText').value = 'Copied to your clipboard!';
+  }
+</script>
+</body>
+
+</html>
