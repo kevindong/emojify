@@ -50,7 +50,7 @@ the following is generated:
 
 which in Slack will look like:
 
-![hello_world.png](https://github.com/kevindong/emojify/raw/master/hello_world.png)
+![parrots.gif](https://github.com/kevindong/emojify/raw/master/parrots.gif)
 
 ## Example 2
 For the given inputs below:
@@ -76,7 +76,7 @@ the following is generated:
 
 which in Slack will look like:
 
-![parrots.gif](https://github.com/kevindong/emojify/raw/master/parrots.gif)
+![hello_world.png](https://github.com/kevindong/emojify/raw/master/hello_world.png)
 
 ## License
 MIT
