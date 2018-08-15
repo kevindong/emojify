@@ -107,17 +107,8 @@
       fullBinaryOutput += `${binaryOutput}\n`;
     }
     fullBinaryOutput = fullBinaryOutput.slice(0, -2);
-    let actualOutput = '';
-    for (let i = 0; i < fullBinaryOutput.length; i++) {
-      if (fullBinaryOutput.charAt(i) === '0') {
-        actualOutput += ':empty:';
-      } else if (fullBinaryOutput.charAt(i) === '1') {
-        actualOutput += `:${emoji}:`
-      } else {
-        actualOutput += '\n';
-      }
-    }
-    return actualOutput;
+    fullBinaryOutput = fullBinaryOutput.replace(/0/g, ':empty:').replace(/1/g, `:${emoji}:`);
+    return fullBinaryOutput;
   }
   
   function copyToClipboard() {
