@@ -31,7 +31,7 @@
 <div class="card mt-3">
   <div class="card-body">
     <h5 class="card-title">Instructions</h5>
-    <p class="mb-0">Note that you <strong>need</strong> an emoji in your Slack called "empty" (which should be a plain white image) in order for this tool to work correctly. Click <a href="https://github.com/kevindong/emojify/raw/master/empty.png">here</a> to download such an image. You'll need to upload it to your Slack in order to use this tool.</p>
+    <p class="mb-0">Note that you <strong>need</strong> an emoji in your Slack that is a transparent blank image (or as close to one as possible). This web app initially assumes it's called "<code>empty</code>" (but you can customize it). Click <a href="https://github.com/kevindong/emojify/raw/master/empty.png">here</a> to download such an image. You'll need to upload it to your Slack in order to use this tool.</p>
   </div>
 </div>
 <div class="card mt-3">
@@ -40,6 +40,10 @@
     <div class="form-group">
       <label for="inputEmoji">What emoji do you want to use?</label>
       <input type="text" class="form-control" id="inputEmoji" value="partyparrot">
+    </div>
+    <div class="form-group">
+      <label for="inputEmoji">What is your empty image called?</label>
+      <input type="text" class="form-control" id="emptyEmoji" value="empty">
     </div>
     <div class="form-group">
       <label for="inputText">What text do you want to emojify?</label>
@@ -107,7 +111,8 @@
       fullBinaryOutput += `${binaryOutput}\n`;
     }
     fullBinaryOutput = fullBinaryOutput.slice(0, -2);
-    fullBinaryOutput = fullBinaryOutput.replace(/0/g, ':empty:').replace(/1/g, `:${emoji}:`);
+    const emptyEmoji = document.getElementById('emptyEmoji').value;
+    fullBinaryOutput = fullBinaryOutput.replace(/0/g, `:${emptyEmoji}:`).replace(/1/g, `:${emoji}:`);
     return fullBinaryOutput;
   }
   
