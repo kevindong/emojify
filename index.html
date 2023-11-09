@@ -110,9 +110,17 @@
       let binaryOutput = `${line0}\n${line1}\n${line2}\n${line3}\n${line4}\n`;
       fullBinaryOutput += `${binaryOutput}\n`;
     }
-    fullBinaryOutput = fullBinaryOutput.slice(0, -2);
     const emptyEmoji = document.getElementById('emptyEmoji').value;
-    fullBinaryOutput = fullBinaryOutput.replace(/0/g, `:${emptyEmoji}:`).replace(/1/g, `:${emoji}:`);
+    fullBinaryOutput = fullBinaryOutput.slice(0, -2);
+    fullBinaryOutput = fullBinaryOutput.split('').map(c => {
+      if (c === '0') {
+        return `:${emptyEmoji}:`
+      } else if (c === '1') {
+        return `:${emoji}:`;
+      } else {
+        return c;
+      }
+    }).join('');
     return fullBinaryOutput;
   }
   
