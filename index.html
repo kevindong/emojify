@@ -59,7 +59,7 @@
           <label for="inputText">What text do you want to emojify?</label>
           <textarea class="form-control" id="inputText" rows="3"></textarea>
           <small class="form-text text-muted">Alphanumeric (upper or lower case A to Z and any number 0-9), periods,
-            commas, question marks, and exclamation points only. Spaces are allowed.</small>
+            commas, question marks, exclamation points, single quotes, and double quotes only. Spaces are allowed.</small>
         </div>
         <button type="button" class="btn btn-primary" onclick="emojifyDriver()">Emojify</button>
         <button type="button" class="btn btn-outline-secondary float-right" onclick="resetDefaults()">Reset Default
@@ -111,11 +111,11 @@
     }
 
     function emojify(emoji, text) {
-      const dictionary = { 'A': '010\n101\n111\n101\n101', 'C': '111\n100\n100\n100\n111', 'B': '110\n101\n110\n101\n110', 'E': '111\n100\n111\n100\n111', 'D': '110\n101\n101\n101\n110', 'G': '1111\n1000\n1011\n1001\n1111', 'F': '111\n100\n111\n100\n100', 'I': '1\n1\n1\n1\n1', 'H': '101\n101\n111\n101\n101', 'K': '101\n110\n100\n110\n101', 'J': '001\n001\n001\n101\n111', 'M': '11111\n10101\n10101\n10101\n10101', 'L': '100\n100\n100\n100\n111', 'O': '111\n101\n101\n101\n111', 'N': '111\n101\n101\n101\n101', 'Q': '1110\n1010\n1010\n1010\n1111', 'P': '111\n101\n111\n100\n100', 'S': '111\n100\n111\n001\n111', 'R': '111\n101\n110\n101\n101', 'U': '101\n101\n101\n101\n111', 'T': '111\n010\n010\n010\n010', 'W': '10101\n10101\n10101\n10101\n11111', 'V': '101\n101\n101\n101\n010', 'Y': '10001\n01010\n00100\n00100\n00100', 'X': '10001\n01010\n00100\n01010\n10001', 'Z': '11111\n00010\n00100\n01000\n11111', ' ': '0\n0\n0\n0\n0', '0': '111\n101\n101\n101\n111', '1': '1\n1\n1\n1\n1', '2': '111\n001\n111\n100\n111', '3': '111\n001\n111\n001\n111', '4': '101\n101\n111\n001\n001', '5': '111\n100\n111\n001\n111', '6': '100\n100\n111\n101\n111', '7': '111\n001\n001\n001\n001', '8': '111\n101\n111\n101\n111', '9': '111\n101\n111\n001\n001', '.': '000\n000\n000\n000\n010', ',': '000\n000\n000\n010\n100', '?': '010\n001\n010\n000\n010', '!': '010\n010\n010\n000\n010' };
+      const dictionary = { 'A': '010\n101\n111\n101\n101', 'C': '111\n100\n100\n100\n111', 'B': '110\n101\n110\n101\n110', 'E': '111\n100\n111\n100\n111', 'D': '110\n101\n101\n101\n110', 'G': '1111\n1000\n1011\n1001\n1111', 'F': '111\n100\n111\n100\n100', 'I': '1\n1\n1\n1\n1', 'H': '101\n101\n111\n101\n101', 'K': '101\n110\n100\n110\n101', 'J': '001\n001\n001\n101\n111', 'M': '11111\n10101\n10101\n10101\n10101', 'L': '100\n100\n100\n100\n111', 'O': '111\n101\n101\n101\n111', 'N': '111\n101\n101\n101\n101', 'Q': '1110\n1010\n1010\n1010\n1111', 'P': '111\n101\n111\n100\n100', 'S': '111\n100\n111\n001\n111', 'R': '111\n101\n110\n101\n101', 'U': '101\n101\n101\n101\n111', 'T': '111\n010\n010\n010\n010', 'W': '10101\n10101\n10101\n10101\n11111', 'V': '101\n101\n101\n101\n010', 'Y': '10001\n01010\n00100\n00100\n00100', 'X': '10001\n01010\n00100\n01010\n10001', 'Z': '11111\n00010\n00100\n01000\n11111', ' ': '0\n0\n0\n0\n0', '0': '111\n101\n101\n101\n111', '1': '1\n1\n1\n1\n1', '2': '111\n001\n111\n100\n111', '3': '111\n001\n111\n001\n111', '4': '101\n101\n111\n001\n001', '5': '111\n100\n111\n001\n111', '6': '100\n100\n111\n101\n111', '7': '111\n001\n001\n001\n001', '8': '111\n101\n111\n101\n111', '9': '111\n101\n111\n001\n001', '.': '000\n000\n000\n000\n010', ',': '000\n000\n000\n010\n100', '?': '010\n001\n010\n000\n010', '!': '010\n010\n010\n000\n010', '\'': '1\n1\n0\n0\n0', '\"': '11\n11\n00\n00\n00' };
       if (emoji.length == 0 || text.length == 0) {
         return undefined;
       }
-      const validationRegex = /^[A-z0-9 ,.?!]+$/;
+      const validationRegex = /^[A-z0-9 ,.?!'"]+$/;
       const inputTextValid = text.match(validationRegex) !== null;
       if (!inputTextValid) {
         return undefined;
